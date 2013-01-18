@@ -1,0 +1,65 @@
+Release notes
+
+
+0.1 - March 19th, 2012
+-
+- Added if-statements
+- DOES NOT WORK :(
+
+0.2a - March 31st, 2012
+-
+- First fully functional release
+- Loosely based upon Alloc's installer script
+
+0.3a - June 26th, 2012
+-
+- Fixed icon not showing up in Ubuntu's Unity and Elementary OS' Slingshot
+
+0.4a - June 29th, 2012
+-
+- Better looking icon! (Thanks so much to ~master-of-design - http://master-of-design.deviantart.com/)
+- Updated Livecraft's URL from http://www.live-craft.com to http://mc.live-craft.com/
+- Install JRE6 instead of JRE7 for now due to blackscreens and Xorg errors upon quitting the game. To fix this, update LWJGL
+- Began writing server install sections
+- Begin implementing Verify function
+
+0.5 - November 12th, 2012
+-
+- Going back to JRE7 since Minecraft 1.4 includes a newer LWJGL build
+- Fix Verify function
+- Implement Server functions
+- Tidy up comments
+- Clean up splashes
+
+0.6 - December 15th, 2012
+-
+- Add MD5 verification of downloads to Verify function
+- Tidying up some more
+
+1.0 - December 22nd, 2012
+-
+** THE MASSIVE UPDATE **
+
+- Separated Release Notes from shell script
+- Separate the Server installer from the Client installer
+- Use case for menu instead of if-then statements
+- Added a debugging console (part of troubleshooter)
+- Added a log viewer (part of troubleshooter)
+- Added a Troubleshooter
+- Trap keyboard interrupts (CTRL-C)
+- Add an abort function (called by keyboard interrupts)
+- Get ready for Spoutcraft/Tekkit installers! (Not added yet)
+- Changed URL back to www.live-craft.com for simplistic reasons
+- Added Open in Terminal quicklist item (for Unity)
+
+1.1 - December 23rd, 2012
+-
+- Alert the user if the launcher is corrupted (Error dialogue)
+- Removed the debug console in favor of a Debug mode - accessible via the Unity quicklist or via the command "minecraft-debug"
+
+1.2 - January 17th, 2013
+-
+- Rebranded to mc-NIX
+- Plans to port to UNIX-based operating systems are in
+- Added requirement for BASH (No more sh, zsh, etc)
+- Organize the menus
