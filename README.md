@@ -1,7 +1,7 @@
-MIFU: Minecraft Installer for Ubuntu
-=====================================
+mc*NIX - A Minecraft installer for UNIX
+=======================================
 
-A shell-based Minecraft installer for Ubuntu and other Debian based systems.
+A shell-based Minecraft installer for Ubuntu and other *NIX-based systems.
 
 Features:
 - Installer (obviously)
@@ -17,7 +17,7 @@ Features (technical stuff)
 
 How do I use this?
 ---
-- Step 1: Download the MIFU.sh file to your computer
+- Step 1: Download the mcnix.sh file to your computer
 - Step 2: Mark the file as executable
 - Step 3: Open in a terminal
 
