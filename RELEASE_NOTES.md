@@ -63,3 +63,4 @@ Release notes
 - Plans to port to UNIX-based operating systems are in
 - Added requirement for BASH (No more sh, zsh, etc)
 - Organize the menus
+- Start to work on a server installer (finally!)
