@@ -71,3 +71,10 @@ Release notes
 - Added a Vanilla Minecraft Server installer: For both GUI and servers
 - Added Fedora support
 - Use cat instead of a ton of tee
+
+1.5.1 - January 21st, 2013
+-
+- Now compatible with most shells (bash, sh, dash, ksh, tcsh, csh, others)
+- Now BSD compliant, but you must have a desktop environment installed.
+- Even more cat, even less echo
+- Made the troubleshoot UI match the menu
