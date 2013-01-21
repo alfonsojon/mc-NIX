@@ -1,5 +1,5 @@
-mc*NIX - A Minecraft installer for UNIX
-=======================================
+mc*NIX - A Minecraft installer for UNIX/Linux
+=============================================
 
 A shell-based Minecraft installer for Ubuntu and other *NIX-based systems.
 
@@ -8,9 +8,9 @@ Features:
 - Launcher verifier
 - Unity integration
 
-Features (technical stuff)
+Features (technical stuff):
 - MD5 verification of downloads
-- File existance check
+- Launcher verification on launch (silent)
 - Error log dumper
 - Command line integration
 - Debug mode
