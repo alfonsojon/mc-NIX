@@ -23,4 +23,4 @@ How do I use this?
 
 What does it do?
 ---
-- It installs and provides utilities for Minecraft on Ubuntu (and other forms of Linux).
+- It installs and provides utilities for Minecraft on Unix/Linux
