@@ -57,10 +57,17 @@ Release notes
 - Alert the user if the launcher is corrupted (Error dialogue)
 - Removed the debug console in favor of a Debug mode - accessible via the Unity quicklist or via the command "minecraft-debug"
 
-1.2 - January 17th, 2013
+1.5 - January 20th, 2013
 -
+** THE MASSIVE UPDATE #2 **
+
 - Rebranded to mc-NIX
 - Plans to port to UNIX-based operating systems are in
 - Added requirement for BASH (No more sh, zsh, etc)
 - Organize the menus
-- Start to work on a server installer (finally!)
+- Start to work on a server installer (finally!), will be integrated.
+- Added a cleanup function to remove defunct files and locations (for upgrades)
+- Added a fetcher function to download the files
+- Added a Vanilla Minecraft Server installer: For both GUI and servers
+- Added Fedora support
+- Use cat instead of a ton of tee

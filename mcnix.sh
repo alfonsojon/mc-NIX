@@ -1,44 +1,39 @@
 #!/bin/bash
-
-# Fully rewritten by alfonsojon :)
-# Thank you Alloc for writing the first version and giving me an easy way to install Minecraft on Debian and Ubuntu.
-#
 # This script does not distribute any protected Minecraft files. You can't use this to play Minecraft without buying it.
 # All of the files downloaded by this script are hosted on www.minecraft.net, so this does not break Minecraft's license.
-#
 # Enjoy, alfonsojon (Problems? E-Mail me at alfonsojon1997@gmail.com)
-#
-# Last edited on January 17th, 2013
 
-# Begin Script
+# Trap CTRL-C
+trap abort SIGINT
+
+###
+# Generic checks
+###
 
 # Make sure we're using bash and not some other shell!
 if [ "$BASH" != "/bin/bash" ]; then
     echo "Please use bash and try again."
     exit
 fi
-
-# Trap CTRL-C
-trap abort SIGINT
-
-# Debian compatibility checks
-if ! which apt-get > /dev/null; then
-    echo -e "This system must have aptitude!"
-    read -p "Press enter to quit."
-fi
-
+# Cleanup
+function cleanup {
+NAME=""
+LOCATION=""
+URL=""
+READFILE=""
+MD5=""
+}
+###
+cleanup
+###
 # Begin function Main
+###
 function Main {
-INSTALLED_VANILLA=0
-INSTALLED_SPOUTCRAFT=0
-INSTALLED_TEKKIT=0
 clear
-echo -e "\n   mc-*NIX v1.0"
-echo -e "     (For Debian-based Systems)"
+echo -e "\n   mc-*NIX v1.5 - 1/20/2013"
 echo -e "\n   Made by alfonsojon"
 echo -e "   E-Mail: alfonsojon1997@gmail.com"
 echo -e "   Website: http://www.live-craft.com/"
-echo -e "\n                                                                  12/22/2012"
 echo -e "\n   Select an option (type the number and hit enter)"
 echo -e '   You can also type the name of the entry. To exit, type "exit" or "quit".'
 echo -e "\n1. Install Minecraft"
@@ -48,6 +43,11 @@ then
     echo -e "2. Uninstall Minecraft"
     echo -e "3. Launch Minecraft"
     echo -e "9. Troubleshoot Minecraft"
+fi
+echo -e "\na. Install Minecraft Server"
+if [ -e /opt/minecraft_server ] && [ -e /opt/minecraft_server/minecraft_server.jar ]; then
+    echo -e "b. Start Minecraft Server"
+    echo -e "c. Uninstall Minecraft Server"
 fi
 echo -e "\n0. Release Notes"
 echo -e "> \c"
@@ -68,16 +68,15 @@ case $INPUT in
         else
             Main
         fi;;
-    9|Troubleshoot)
+    9|"Troubleshoot")
         if [ $INSTALLED_VANILLA -eq 1 ]; then
             Troubleshoot_vanilla
         else
             Main
         fi;;
     0|"Release Notes")
-        wget --quiet --output-document "/tmp/mifu_releasenotes.txt" "https://raw.github.com/alfonsojon/mifu--Minecraft-Installer-for-Ubuntu-/master/RELEASE_NOTES.md
-        READFILE=/tmp/mifu_releasenotes.txt"
-        reader
+	    FILE="/tmp/mcnix_notes.txt"
+        reader "https://raw.github.com/alfonsojon/mc-NIX/master/RELEASE_NOTES.md" $FILE
         Main;;
     exit|q|quit) clear; exit 0;;
     *) Main;;
@@ -89,111 +88,90 @@ shopt -u nocasematch
 # Begin function Install_vanilla
 ###
 function Install_vanilla {
-# Java check
 clear
-echo -e "The installer will now look for Java."
-
-if ! which java > /dev/null; then
-    echo -e "Java not installed, installing"
-    sudo apt-get install openjdk-7-jre -y
-    echo -e "\nJava has been installed."
-    clear
-else
-    echo -e "Java is installed, continuing."
-fi
+javacheck
 # Launcher
-NAME="minecraft.jar"
-LOCATION="/usr/share/minecraft"
-MD5="bb99785000fdb3ebadd61a4a347fa042"
-if [ -e /usr/share/minecraft/launcher.jar ]; then
-    echo -e "Invalid launcher found, removing"
-    sudo rm -rf /usr/share/minecraft/launcher.jar
-fi
-if [ -e /usr/share/minecraft/minecraft.jar ]; then
+FILE="/usr/share/minecraft/minecraft.jar"
+if [ -e $FILE ]; then
     echo -e "Launcher already installed, upgrading"
-    sudo rm -rf /usr/share/minecraft/minecraft.jar
+    sudo rm -rf $FILE
 fi
 echo -e "\nDownloading minecraft.jar"
 sudo mkdir -p "/usr/share/minecraft"
-sudo wget --quiet --output-document /usr/share/minecraft/minecraft.jar https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft.jar
-dlverify
-md5verify
+fetch_sudo "https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft.jar" "$FILE"
+md5verify "bb99785000fdb3ebadd61a4a347fa042" "$FILE"
 # Icon
-NAME="minecraft.svg"
-LOCATION="/usr/share/icons"
-MD5="52fe4c84feb29eecb0129d1c10895ff7"
+FILE="/usr/share/icons/minecraft.svg"
 if [ -e /usr/share/icons/minecraft.svg ]; then
     echo -e "minecraft.svg already downloaded, upgrading"
     sudo rm -rf /usr/share/icons/minecraft.svg
 fi
 echo -e "Downloading minecraft.svg"
-sudo wget --quiet --output-document "/usr/share/icons/minecraft.svg" "https://raw.github.com/alfonsojon/MIFU--Minecraft-Installer-for-Ubuntu/master/minecraft.svg"
-dlverify
-md5verify
+fetch_sudo "https://raw.github.com/alfonsojon/mc-NIX/master/minecraft.svg" "$FILE"
+md5verify "52fe4c84feb29eecb0129d1c10895ff7" "$FILE"
 # /usr/local/bin/minecraft
-NAME="minecraft"
-LOCATION="/usr/local/bin"
-MD5="null"
-if [ -e /usr/local/bin/minecraft ]; then
+FILE="/usr/local/bin/minecraft"
+if [ -e $FILE ]; then
     echo -e "Minecraft launcher binary already exists, upgrading."
-    sudo rm -rf /usr/local/bin/minecraft
+    sudo rm -rf $FILE
 fi
-echo -e "---------------"
-echo -e "#!/bin/bash" | sudo tee -a  /usr/local/bin/minecraft
-echo -e "cd /usr/share/minecraft" | sudo tee -a /usr/local/bin/minecraft
-echo -e "echo \"bb99785000fdb3ebadd61a4a347fa042  /usr/share/minecraft/minecraft.jar\" | md5sum -c" | sudo tee -a /usr/local/bin/minecraft
-echo -e "if [ "\$?" -ne "0" ]; then" | sudo tee -a /usr/local/bin/minecraft
-echo -e "   zenity --title \"Error\" --error --text='Launcher not installed properly.\nPlease reinstall Minecraft.'" | sudo tee -a /usr/local/bin/minecraft
-echo -e "   exit 1" | sudo tee -a /usr/local/bin/minecraft
-echo -e "else" | sudo tee -a /usr/local/bin/minecraft
-echo -e "   java -jar /usr/share/minecraft/minecraft.jar" | sudo tee -a  /usr/local/bin/minecraft
-echo -e "fi" | sudo tee -a /usr/local/bin/minecraft
-echo -e "exit 0" | sudo tee -a  /usr/local/bin/minecraft
-echo -e "---------------"
-echo -e "Minecraft launcher binary installed successfully."
-# /usr/local/bin/minecraft-debug
-NAME="minecraft-debug"
-LOCATION="/usr/local/bin"
-MD5="null"
-if [ -e /usr/local/bin/minecraft-debug ]; then
-    echo -e "Minecraft debug launcher binary already exists, upgrading."
-    sudo rm -rf /usr/local/min/minecraft-debug
+sudo touch /usr/local/bin/minecraft
+sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft
+#!/bin/bash
+cd /usr/share/minecraft
+echo "bb99785000fdb3ebadd61a4a347fa042  /usr/share/minecraft/minecraft.jar" | md5sum -c
+if [ "$?" -ne "0" ]; then
+    echo "Launcher not installed properly."
+    echo "Please reinstall minecraft."
+    zenity --title \"Error\" --error --text="Launcher not installed properly.\nPlease reinstall Minecraft."
+    exit 1
+else
+java -jar /usr/share/minecraft/minecraft.jar
 fi
-echo -e "---------------"
-echo -e "#!/bin/bash" | sudo tee -a  /usr/local/bin/minecraft-debug
-echo -e "minecraft|tee ~/minecraft_debug_log.txt &&  zenity --info --text='Minecraft logfile stored in \"$HOME\"'" | sudo tee -a  /usr/local/bin/minecraft-debug
-echo -e "exit 0" | sudo tee -a  /usr/local/bin/minecraft-debug
-echo -e "---------------"
+exit 0
+EOF'
 sudo chmod +x /usr/local/bin/minecraft
+echo "Minecraft launcher binary installed successfully."
+# /usr/local/bin/minecraft-debug
+FILE="/usr/local/bin/minecraft-debug"
+if [ -e $FILE ]; then
+    echo -e "Minecraft debug launcher binary already exists, upgrading."
+    sudo rm -rf /usr/local/bin/minecraft-debug
+fi
+sudo touch /usr/local/bin/minecraft-debug
+sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft-debug
+#!/bin/bash
+minecraft | tee ~/minecraft_debug_log.txt && echo "Minecraft logfile stored in \"$HOME\"" &&  zenity --info --text="Minecraft logfile stored in \"$HOME\""
+exit 0
+EOF'
 sudo chmod +x /usr/local/bin/minecraft-debug
-echo -e "Minecraft debug launcher binary installed successfully."
-echo -e ""
-# Application icon (/usr/share/applications/mojang-Minecraft.desktop)
-if [ -e /usr/share/applications/mojang-Minecraft.desktop ]; then
+echo -e "Minecraft debug launcher binary installed successfully.\n"
+# Application launcher (/usr/share/applications/mojang-Minecraft.desktop)
+FILE=/usr/share/applications/mojang-Minecraft.desktop
+if [ -e $FILE ]; then
     echo -e "Minecraft shortcut already installed, upgrading"
     sudo rm -rf /usr/share/applications/mojang-Minecraft.desktop
 fi
-echo -e "Writing mojang-Minecraft.desktop..."
-echo -e "---------------"
-echo -e "[Desktop Entry]" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "Comment=Play Minecraft" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "Name=Minecraft" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "TryExec=minecraft" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "Exec=minecraft" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "Actions=Debug;" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "GenericName=Building Game" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "Icon=minecraft" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "Categories=Game;" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "Type=Application" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "[Desktop Action Debug]" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "Name=Debug Mode" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "Exec=minecraft-debug" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "OnlyShowIn=Unity;" | sudo tee -a  /usr/share/applications/mojang-Minecraft.desktop
-echo -e "---------------"
-echo -e "mojang-Minecraft.desktop written to /usr/share/applications"
+sudo touch /usr/share/applications/mojang-Minecraft.desktop
+sudo $SHELL -c 'cat <<EOF > /usr/share/applications/mojang-Minecraft.desktop
+[Desktop Entry]
+Comment=Play Minecraft
+Name=Minecraft
+TryExec=minecraft
+Exec=minecraft
+Actions=Debug;
+GenericName=Building Game
+Icon=minecraft"
+Categories=Game;
+Type=Application
+
+[Desktop Action Debug]
+Name=Debug Mode
+Exec=minecraft-debug
+OnlyShowIn=Unity;
+EOF'
 sudo chmod +x /usr/share/applications/mojang-Minecraft.desktop
-echo -e "Marked mojang-Minecraft.desktop as executable."
+echo -e "mojang-Minecraft.desktop written to /usr/share/applications"
 sudo xdg-desktop-menu install /usr/share/applications/mojang-Minecraft.desktop
 sudo xdg-desktop-menu forceupdate
 echo -e "Registered mojang-Minecraft.desktop in the menu/Launcher."
@@ -268,8 +246,8 @@ if [ -e ~/minecraft_debug_log.txt ]; then
     echo -e "5. View Debug Log"
 fi
 echo -e "\n0. Cancel"
-read INPUT
 shopt -s nocasematch
+read INPUT
 case $INPUT in
     1|"Black screen")
         echo -e 'When the Minecraft launcher opens, click "Options", then "Force Update".'
@@ -330,17 +308,75 @@ esac
 shopt -u nocasematch
 }
 
+
 ###
-# Begin function dlverify
+# Fetch functions
 ###
-function dlverify {
+function fetch {
+if command -v wget >/dev/null 2>&1; then
+    echo "Downloading ${FILE}..."
+    wget --quiet --output-document="$2" "$1"
+else
+    if command -v curl >/dev/null 2>&1; then
+        curl --silent --output "$1" "$2"
+    else
+        echo -e "curl/wget not found."
+        echo -e "Please install wget or curl and try again."
+        exit 1
+    fi
+fi
 if [ "$?" -ne "0" ]; then
-    echo -e "Download of ${NAME} failed. Returning to the Main Menu."
-    echo -e ""
+    echo -e "Download of ${FILE} failed. Returning to the Main Menu."
+    sleep 3
     Main
 else
-    echo -e "${NAME} downloaded successfully." 
-    echo -e ""
+    echo -e "${FILE} downloaded successfully."
+fi
+}
+function fetch_sudo {
+if command -v wget >/dev/null 2>&1; then
+    echo "Downloading $NAME..."
+    sudo wget --quiet --output-document="$2" "$1"
+else
+    if command -v curl >/dev/null 2>&1; then
+        sudo curl --silent --output "$1" "$2"
+    else
+        echo -e "curl/wget not found."
+        echo -e "Please install wget or curl and try again."
+        exit 1
+    fi
+fi
+if [ "$?" -ne "0" ]; then
+    echo -e "Download of ${NAME} failed. Returning to the Main Menu."
+    sleep 3
+    Main
+else
+    echo -e "${NAME} downloaded successfully."
+fi
+}
+
+###
+# Java checking function
+###
+function javacheck {
+if command -v java >/dev/null 2>&1; then
+    echo "Java installed, continuing"
+else
+    if command -v apt-get >/dev/null 2>&1; then
+        sudo apt-get install openjdk-7-jre
+    else
+        if command -v aptitude >/dev/null 2>&1; then
+            sudo aptitude install openjdk-7-jre
+        else
+            if command -v yum >/dev/null 2>&1; then
+                su -c "yum install java-1.7.0-openjdk"
+            else
+                echo "You are running an unsupported system."
+                echo "Please install Java manually, then re-run the installer."
+                exit
+            fi
+        fi
+    fi
 fi
 }
 
@@ -348,7 +384,7 @@ fi
 # Begin function md5verify
 ###
 function md5verify {
-echo "$MD5  $LOCATION/$NAME" | md5sum -c
+echo "$1  $2" | md5sum -c
 if [ "$?" -ne "0" ]; then
     echo -e "MD5 verification of ${NAME} failed. Please try reinstalling."
     echo -e "Returning to the Main Menu."
@@ -366,18 +402,46 @@ fi
 ###
 function reader {
     clear
+    if [ $2 != "" ]; then
+        fetch $1 $2
+    fi
     echo -e "Press Q when finished viewing."
     echo -e ""
     read -p "Press enter to continue."
-    less $READFILE
+    less $FILE
 }
+###
+# Begin function javacheck
+###
+function javacheck {
+if command -v java >/dev/null 2>&1; then
+    echo "Java installed, continuing"
+else
+    if command -v apt-get >/dev/null 2>&1; then
+        sudo apt-get install openjdk-7-jre
+    else
+        if command -v aptitude >/dev/null 2>&1; then
+            sudo aptitude install openjdk-7-jre
+        else
+            if command -v yum >/dev/null 2>&1; then
+                su -c "yum install java-1.7.0-openjdk"
+            else
+                echo "You are running an unsupported system."
+                echo "Please install Java manually, then re-run the installer."
+                exit
+            fi
+        fi
+    fi
+fi
+}
+
 ###
 # Begin function abort
 ###
 function abort {
 echo -e "\nKeyboard interrupt (CTRL-C), aborting."
 echo -e "If you cancelled mid-installation, you may have to reinstall Minecraft."
-exit $?
+exit 0
 }
 
 Main
