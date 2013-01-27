@@ -7,16 +7,6 @@
 trap abort 2 15
 
 ###
-# Generic checks
-###
-
-# Make sure we're using bash and not some other shell!
-#if [ "$BASH" != "/bin/bash" ]; then
-#    echo "Please use bash and try again."
-#    exit
-#fi
-
-###
 # Begin function Main
 ###
 function Main {
@@ -126,7 +116,7 @@ if [ -e $FILE ]; then
     sudo rm -rf $FILE
 fi
 sudo touch /usr/local/bin/minecraft
-sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft
+sudo bash -c 'cat <<EOF > /usr/local/bin/minecraft
 #!/bin/bash
 cd /usr/share/minecraft
 echo "bb99785000fdb3ebadd61a4a347fa042  /usr/share/minecraft/minecraft.jar" | md5sum -c
