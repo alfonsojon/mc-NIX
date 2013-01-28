@@ -13,7 +13,7 @@ function Main {
 clear
 cat <<EOF
 
-   mc-*NIX v1.5 - 1/21/2013
+   mc-*NIX v1.5.2 - 1/28/2013
 
    Made by alfonsojon
    E-Mail: alfonsojon1997@gmail.com
@@ -120,13 +120,13 @@ sudo bash -c 'cat <<EOF > /usr/local/bin/minecraft
 #!/bin/bash
 cd /usr/share/minecraft
 echo "bb99785000fdb3ebadd61a4a347fa042  /usr/share/minecraft/minecraft.jar" | md5sum -c
-if [ "$?" -ne "0" ]; then
+if [ "\$?" -ne "0" ]; then
     echo "Launcher not installed properly."
     echo "Please reinstall minecraft."
     zenity --title \"Error\" --error --text="Launcher not installed properly.\nPlease reinstall Minecraft."
     exit 1
 else
-java -jar /usr/share/minecraft/minecraft.jar
+	java -jar /usr/share/minecraft/minecraft.jar
 fi
 exit 0
 EOF'
@@ -161,7 +161,7 @@ TryExec=minecraft
 Exec=minecraft
 Actions=Debug;
 GenericName=Building Game
-Icon=minecraft"
+Icon=minecraft
 Categories=Game;
 Type=Application
 

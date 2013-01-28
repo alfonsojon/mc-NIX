@@ -9,7 +9,6 @@ from os import path, access, R_OK
 
 # Functions
 # File existance check
-PATH = ''
 def file_exists(FILE):
 	if path.exists(FILE) and path.isfile(FILE) and access(FILE, R_OK):
 		print PATH,'exists.'

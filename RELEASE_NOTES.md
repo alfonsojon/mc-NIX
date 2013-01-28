@@ -78,3 +78,7 @@ Release notes
 - Now BSD compliant, but you must have a desktop environment installed.
 - Even more cat, even less echo
 - Made the troubleshoot UI match the menu
+
+1.5.2 - January 28th, 2013
+-
+- Fixed MD5 verification of the launcher
