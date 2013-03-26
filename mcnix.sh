@@ -1,11 +1,50 @@
 #!/bin/bash
+#
+#  Copyright 2013 Jonathan Alfonso <alfonsojon1997@gmail.com>
+#  
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#  
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+#  MA 02110-1301, USA.
+#  
+#  
 # This script does not distribute any protected Minecraft files. You can't use this to play Minecraft without buying it.
-# All of the files downloaded by this script are hosted on www.minecraft.net, so this does not break Minecraft's license.
+# All of the files downloaded by this script are provided by www.minecraft.net, so this does not break Minecraft's license.
 # Enjoy, alfonsojon (Problems? E-Mail me at alfonsojon1997@gmail.com)
 
 # Trap CTRL-C
 trap abort 2 15
+abort () {
+echo "Keyboard interrupt (CTRL-C), aborting."
+echo "If you cancelled mid-installation, you may have to reinstall Minecraft."
+exit 0
+}
 
+
+###
+# Legal Info
+###
+clear
+cat <<EOF
+This script does not distribute any protected Minecraft files. You can't
+use this to play Minecraft without buying it. All of the files 
+downloaded by this script are provided by minecraft.net, so this doesn't
+break Minecraft's license.
+
+Enjoy, alfonsojon (Problems? E-Mail me at alfonsojon1997@gmail.com)
+EOF
+echo ""
+read -p "Press enter to continue."
 ###
 # Begin function Main
 ###
@@ -451,15 +490,6 @@ else
         fi
     fi
 fi
-}
-
-###
-# Begin function abort
-###
-abort () {
-echo "Keyboard interrupt (CTRL-C), aborting."
-echo "If you cancelled mid-installation, you may have to reinstall Minecraft."
-exit 0
 }
 
 Main
