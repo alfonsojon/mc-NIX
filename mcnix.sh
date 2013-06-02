@@ -772,7 +772,7 @@ case $INPUT in
 		fi;;
 	0)
 		FILE="/tmp/mcnix_notes.txt"
-		reader "https://raw.github.com/alfonsojon/mc-NIX/fmaster/RELEASE_NOTES.md" $FILE
+		reader "https://raw.github.com/alfonsojon/mc-NIX/master/RELEASE_NOTES.md" $FILE
 		Main;;
 	q|Q|quit|Quit|QUIT|cancel|Cancel|CANCEL) clear; exit 0;;
 	*) Main;;
