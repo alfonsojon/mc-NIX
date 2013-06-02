@@ -25,3 +25,4 @@ How do I use this?
 What does it do?
 ---
 - It installs and provides utilities for Minecraft on Unix/Linux
+- It enables a very easy way to get a Minecraft server set up.

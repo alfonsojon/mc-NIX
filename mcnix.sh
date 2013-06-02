@@ -532,6 +532,7 @@ case $INPUT in
 	y|Y|yes|Yes|YES)
 		echo "Moving data to '$HOME'. This may take a few moments."
 		sudo cp -r /opt/minecraft_server/* $HOME
+		sudo chown -hR `echo "$(id -u -n)"`:`echo "$(id -u -n)"`
 		echo "Data moved to '$HOME'."
 		sudo rm -rf /opt/minecraft_server
 		sudo rm -rf /usr/local/bin/minecraft-server

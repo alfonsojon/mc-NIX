@@ -96,3 +96,4 @@ Test build - Report bugs to alfonsojon1997@gmail.com
 - Added GPL v2 & improved licensing
 - Use more if-elif-else instead of nesting if-then-else over and over
 - Remove redundant messages
+- Use cat even more where echo was used
