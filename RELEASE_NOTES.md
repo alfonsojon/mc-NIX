@@ -23,7 +23,7 @@ Release notes
 - Began writing server install sections
 - Begin implementing Verify function
 
-0.5 - November 12th, 2012
+0.5.0 - November 12th, 2012
 -
 - Going back to JRE7 since Minecraft 1.4 includes a newer LWJGL build
 - Fix Verify function
@@ -36,7 +36,7 @@ Release notes
 - Add MD5 verification of downloads to Verify function
 - Tidying up some more
 
-1.0 - December 22nd, 2012
+1.0.0 - December 22nd, 2012
 -
 ** THE MASSIVE UPDATE **
 
@@ -52,12 +52,12 @@ Release notes
 - Changed URL back to www.live-craft.com for simplistic reasons
 - Added Open in Terminal quicklist item (for Unity)
 
-1.1 - December 23rd, 2012
+1.1.0 - December 23rd, 2012
 -
 - Alert the user if the launcher is corrupted (Error dialogue)
 - Removed the debug console in favor of a Debug mode - accessible via the Unity quicklist or via the command "minecraft-debug"
 
-1.5 - January 20th, 2013
+1.5.0 - January 20th, 2013
 -
 ** THE MASSIVE UPDATE #2 **
 
@@ -82,3 +82,17 @@ Release notes
 1.5.2 - January 28th, 2013
 -
 - Fixed MD5 verification of the launcher
+
+2.0.0 - June 2nd, 2013
+Test build - Report bugs to alfonsojon1997@gmail.com
+-
+- Added server installation option (Vanilla, Bukkit, & Spigot)
+- Redesigned menus
+- Unified menu items
+- Made more UNIX-compliant
+- Added jar sanity check rather than overusing MD5 verifications
+- Removed the now-useless MD5 verifications
+- Improved Unity integration
+- Added GPL v2 & improved licensing
+- Use more if-elif-else instead of nesting if-then-else over and over
+- Remove redundant messages

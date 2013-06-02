@@ -20,6 +20,7 @@ How do I use this?
 - Step 1: Download the mcnix.sh file to your computer
 - Step 2: Mark the file as executable
 - Step 3: Open in a terminal
+- The rest should be fairly easy to figure out :)
 
 What does it do?
 ---
