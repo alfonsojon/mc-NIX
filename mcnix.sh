@@ -73,22 +73,6 @@ fi
 }
 
 ###
-# Begin function reader
-###
-reader () {
-	clear
-	if [[ -e $FILE ]]; then
-		rm -rf $FILE
-	fi
-	if [[ $2 != "" ]]; then
-		fetch $1 $2
-	fi
-	echo "Press Q when finished viewing."
-	echo ""
-	read -p "Press enter to continue."
-	less $FILE
-}
-###
 # Begin function javacheck
 ###
 javacheck () {
@@ -730,7 +714,6 @@ cat <<EOF
    c. Launch Minecraft Server
 EOF
 fi
-echo "   0. Release Notes"
 echo ""
 printf "> "
 read INPUT
@@ -770,10 +753,6 @@ case $INPUT in
 		else
 			Main
 		fi;;
-	0)
-		FILE="/tmp/mcnix_notes.txt"
-		reader "https://raw.github.com/alfonsojon/mc-NIX/master/RELEASE_NOTES.md" $FILE
-		Main;;
 	q|Q|quit|Quit|QUIT|cancel|Cancel|CANCEL) clear; exit 0;;
 	*) Main;;
 esac
