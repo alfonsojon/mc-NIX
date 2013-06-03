@@ -155,7 +155,7 @@ if [[ -e $FILE ]]; then
 	sudo rm -rf $FILE
 fi
 sudo touch /usr/local/bin/minecraft
-sudo bash -c 'cat <<EOF > /usr/local/bin/minecraft
+sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft
 #!/bin/bash
 cd /usr/share/minecraft
 java -jar /usr/share/minecraft/minecraft.jar
@@ -186,22 +186,22 @@ if [[ -e $FILE ]]; then
 fi
 sudo touch /usr/share/applications/mojang-Minecraft.desktop
 sudo $SHELL -c 'cat <<EOF > /usr/share/applications/mojang-Minecraft.desktop
-[[Desktop Entry]]
+[Desktop Entry]
 Comment=Play Minecraft
 Name=Minecraft
 TryExec=minecraft
 Exec=minecraft
-Actions=Debug;Wiki;
+Actions=Debug;MinecraftWiki;
 GenericName=Building Game
 Icon=minecraft
 Categories=Game;
 Type=Application
 
-[[Desktop Action Debug]]
+[Desktop Action Debug]
 Name=Debug Mode
 Exec=minecraft-debug
 
-[[Desktop Action Wiki]]
+[Desktop Action MinecraftWiki]
 Name=Minecraft Wiki
 Exec=xdg-open http://www.minecraftwiki.net/
 EOF'
@@ -673,7 +673,7 @@ clear
 if [[ $1 = error ]]; then
 cat <<EOF
 ####################################
-#  mc-*NIX v2.0 *PREVIEW* - 6/2/2013
+#  mc-*NIX v2.1 *PREVIEW* - 6/3/2013
 ####################################
       > Installation failed <
 
@@ -681,7 +681,7 @@ EOF
 else
 cat <<EOF
 ####################################
-#  mc-*NIX v2.0 *PREVIEW* - 6/2/2013
+#  mc-*NIX v2.1 *PREVIEW* - 6/3/2013
 ####################################
 
 EOF
@@ -704,9 +704,9 @@ cat <<EOF
    3. Launch Minecraft
    9. Troubleshoot Minecraft
 
-   a. Install Minecraft Server
 EOF
 fi
+echo "   a. Install Minecraft Server"
 if [[ -e /opt/minecraft_server ]]; then
 	INSTALLED_SERVER=1
 cat <<EOF

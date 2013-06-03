@@ -96,3 +96,10 @@ Release notes
 - Use more if-elif-else instead of nesting if-then-else over and over
 - Remove redundant messages
 - Use cat even more where echo was used
+
+2.1.0 - June 3rd, 2013
+-
+- Fixed typos
+- Removed release notes (pointless, viewable online)
+- Added OS compatibility check
+- Corrected server installation menu option
