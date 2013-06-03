@@ -103,3 +103,4 @@ Release notes
 - Removed release notes (pointless, viewable online)
 - Added OS compatibility check
 - Corrected server installation menu option
+- Fixed desktop icon
