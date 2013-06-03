@@ -84,7 +84,7 @@ Release notes
 - Fixed MD5 verification of the launcher
 
 2.0.0 - June 2nd, 2013
-Test build - Report bugs to alfonsojon1997@gmail.com
+- Test build - Report bugs to alfonsojon1997@gmail.com
 -
 - Added server installation option (Vanilla, Bukkit, & Spigot)
 - Redesigned menus
