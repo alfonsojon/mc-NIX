@@ -104,3 +104,8 @@ Release notes
 - Added OS compatibility check
 - Corrected server installation menu option
 - Fixed desktop icon
+
+2.1.1 - June 11th, 2013
+-
+- Use /usr/sbin instead of /usr/local/bin
+- Added support for Chrome OS (if Java is already installed)

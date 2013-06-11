@@ -149,13 +149,13 @@ if [[ -e $FILE ]]; then
 fi
 sudo rm -rf $OLDFILE
 fetch_sudo "https://raw.github.com/alfonsojon/mc-NIX/master/minecraft.svg" "$FILE"
-# /usr/local/bin/minecraft
-FILE="/usr/local/bin/minecraft"
+# /usr/sbin/minecraft
+FILE="/usr/sbin/minecraft"
 if [[ -e $FILE ]]; then
 	sudo rm -rf $FILE
 fi
-sudo touch /usr/local/bin/minecraft
-sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft
+sudo touch /usr/sbin/minecraft
+sudo $SHELL -c 'cat <<EOF > /usr/sbin/minecraft
 #!/bin/bash
 cd /usr/share/minecraft
 java -jar /usr/share/minecraft/minecraft.jar
@@ -166,19 +166,19 @@ if [[ "\$?" -ne "0" ]]; then
 fi
 exit 0
 EOF'
-sudo chmod +x /usr/local/bin/minecraft
-# /usr/local/bin/minecraft-debug
-FILE="/usr/local/bin/minecraft-debug"
+sudo chmod +x /usr/sbin/minecraft
+# /usr/sbin/minecraft-debug
+FILE="/usr/sbin/minecraft-debug"
 if [[ -e $FILE ]]; then
-	sudo rm -rf /usr/local/bin/minecraft-debug
+	sudo rm -rf /usr/sbin/minecraft-debug
 fi
-sudo touch /usr/local/bin/minecraft-debug
-sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft-debug
+sudo touch /usr/sbin/minecraft-debug
+sudo $SHELL -c 'cat <<EOF > /usr/sbin/minecraft-debug
 #!/bin/bash
 minecraft | tee $HOME/minecraft_debug_log.txt && echo "Minecraft logfile stored in \"$HOME\"" &&  zenity --info --text="Minecraft logfile stored in \"$HOME\""
 exit 0
 EOF'
-sudo chmod +x /usr/local/bin/minecraft-debug
+sudo chmod +x /usr/sbin/minecraft-debug
 # Application launcher (/usr/share/applications/mojang-Minecraft.desktop)
 FILE=/usr/share/applications/mojang-Minecraft.desktop
 if [[ -e $FILE ]]; then
@@ -274,8 +274,8 @@ case $INPUT in
 		if [[ -e /usr/share/icons/minecraft.svg ]]; then
 			sudo rm -rf /usr/share/icons/minecraft.svg
 		fi
-		if [[ -e /usr/local/bin/minecraft ]]; then
-			sudo rm -rf /usr/local/bin/minecraft
+		if [[ -e /usr/sbin/minecraft ]]; then
+			sudo rm -rf /usr/sbin/minecraft
 		fi
 		if [[ -e /usr/share/applications/mojang-Minecraft.desktop ]]; then
 			xdg-desktop-menu uninstall /usr/share/applications/mojang-Minecraft.desktop
@@ -288,8 +288,8 @@ case $INPUT in
 		if [[ -e /usr/share/icons/minecraft.svg ]]; then
 			sudo rm -rf /usr/share/icons/minecraft.svg
 		fi
-		if [[ -e /usr/local/bin/minecraft ]]; then
-			sudo rm -rf /usr/local/bin/minecraft
+		if [[ -e /usr/sbin/minecraft ]]; then
+			sudo rm -rf /usr/sbin/minecraft
 		fi
 		if [[ -e /usr/share/applications/mojang-Minecraft.desktop ]]; then
 			xdg-desktop-menu uninstall /usr/share/applications/mojang-Minecraft.desktop
@@ -394,8 +394,8 @@ elif [[ $1 == spigot ]]; then
 else
 	Main
 fi
-sudo touch /usr/local/bin/minecraft-server
-sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft-server
+sudo touch /usr/sbin/minecraft-server
+sudo $SHELL -c 'cat <<EOF > /usr/sbin/minecraft-server
 #!/bin/bash
 cd '${DIRECTORY}'
 
@@ -462,7 +462,7 @@ case "\$1" in
 		echo "  help:   Shows this message";;
 esac		
 EOF'
-sudo chmod +x /usr/local/bin/minecraft-server
+sudo chmod +x /usr/sbin/minecraft-server
 # Finished!
 clear
 cat <<EOF
@@ -519,7 +519,7 @@ case $INPUT in
 		sudo chown -hR `echo "$(id -u -n)"`:`echo "$(id -u -n)"`
 		echo "Data moved to '$HOME'."
 		sudo rm -rf /opt/minecraft_server
-		sudo rm -rf /usr/local/bin/minecraft-server
+		sudo rm -rf /usr/sbin/minecraft-server
 		echo "Server files removed."
 		read -p "Press enter to continue."
 		Main;;
@@ -537,7 +537,7 @@ case $INPUT in
 		case $INPUT in
 			y|Y|yes|Yes|YES)
 				sudo rm -rf /opt/minecraft_server
-				sudo rm -rf /usr/local/bin/minecraft-server
+				sudo rm -rf /usr/sbin/minecraft-server
 				echo "Server files removed."
 				read -p "Press enter to continue."
 				Main;;
@@ -696,7 +696,7 @@ cat <<EOF
 
    1. Install Minecraft
 EOF
-if [[ -e /usr/local/bin/minecraft ]] && [[ -e /usr/share/minecraft/minecraft.jar ]]
+if [[ -e /usr/sbin/minecraft ]] && [[ -e /usr/share/minecraft/minecraft.jar ]]
 then
 INSTALLED_VANILLA=1
 cat <<EOF
