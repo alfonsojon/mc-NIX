@@ -109,3 +109,7 @@ Release notes
 -
 - Use /usr/sbin instead of /usr/local/bin
 - Added support for Chrome OS (if Java is already installed)
+
+2.1.2 - June 12th, 2013
+-
+- Revert "Use /usr/sbin instead of /usr/local/bin"
