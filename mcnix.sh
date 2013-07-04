@@ -45,9 +45,9 @@ else
 	exit 1
 fi
 if [[ "$?" -ne "0" ]]; then
-	echo "Download of ${FILE} failed. Returning to the Main Menu."
+	echo "Download of ${FILE} failed. Returning to the main menu."
 	sleep 3
-	Main error
+	main error
 else
 	echo "${FILE} downloaded successfully."
 fi
@@ -64,9 +64,9 @@ else
 	exit 1
 fi
 if [[ "$?" -ne "0" ]]; then
-	echo "Download of ${FILE} failed. Returning to the Main Menu."
+	echo "Download of ${FILE} failed. Returning to the main menu."
 	sleep 3
-	Main error
+	main error
 else
 	echo "${FILE} downloaded successfully."
 fi
@@ -233,7 +233,7 @@ cat <<EOF
 								~alfonsojon
 EOF
 read -p "Press enter to continue."
-Main
+main
 }
 
 ###
@@ -296,7 +296,7 @@ case $INPUT in
 			sudo rm -rf /usr/share/applications/mojang-Minecraft.desktop
 		fi;;
 	q|Q|quit|Quit|QUIT|cancel|Cancel|CANCEL)
-		Main;;
+		main;;
 esac
 clear
 cat <<EOF
@@ -310,7 +310,7 @@ All user preferences and save files have not been damaged.
 								~alfonsojon
 EOF
 read -p "Press enter to continue."
-Main
+main
 }
 ###
 # Begin function Install_server
@@ -392,7 +392,7 @@ elif [[ $1 == spigot ]]; then
 	fetch_sudo $URL $FILE
 	sudo chmod +x $FILE
 else
-	Main
+	main
 fi
 sudo touch /usr/local/bin/minecraft-server
 sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft-server
@@ -487,7 +487,7 @@ cat <<EOF
 								~alfonsojon
 EOF
 read -p "Press enter to continue."
-Main
+main
 }
 
 ###
@@ -522,7 +522,7 @@ case $INPUT in
 		sudo rm -rf /usr/local/bin/minecraft-server
 		echo "Server files removed."
 		read -p "Press enter to continue."
-		Main;;
+		main;;
 	n|N|no|No|NO)
 		clear
 		echo "####################################"
@@ -540,16 +540,16 @@ case $INPUT in
 				sudo rm -rf /usr/local/bin/minecraft-server
 				echo "Server files removed."
 				read -p "Press enter to continue."
-				Main;;
+				main;;
 			n|N|no|No|NO|q|Q|quit|Quit|QUIT|cancel|Cancel|CANCEL)
 				echo "Returning to the main menu."
 				sleep 1
-				Main;;
+				main;;
 		esac;;
 	q|Q|quit|Quit|QUIT|cancel|Cancel|CANCEL)
 		echo "Returning to the main menu."
 		sleep 1
-		Main;;
+		main;;
 esac
 }
 ###
@@ -622,11 +622,11 @@ EOF
 				read -p "Press enter to continue."
 				minecraft;;
 			0)
-				Main;;
+				main;;
 			q|Q|quit|Quit|QUIT|cancel|Cancel|CANCEL)
 				echo "Returning to the main menu."
 				sleep 1
-				Main;;
+				main;;
 			*)
 				Troubleshoot_vanilla;;
 		esac;;
@@ -648,16 +648,16 @@ EOF
 			READFILE=~/minecraft_debug_log.txt
 			reader
 			less ~/minecraft_debug_log.txt
-			Main;;
+			main;;
 		2|no|n)
-			Main;;
+			main;;
 		esac;;
 	5)
 		FILE=~/minecraft_debug_log.txt
 		reader $FILE
 		Troubleshoot_vanilla;;
 	0)
-		Main;;
+		main;;
 	*)
 		Troubleshoot_vanilla;;
 esac
@@ -666,9 +666,9 @@ printf "> "
 }
 
 ###
-# Begin function Main
+# Begin function main
 ###
-Main () {
+main () {
 clear
 if [[ $1 = error ]]; then
 cat <<EOF
@@ -719,43 +719,43 @@ printf "> "
 read INPUT
 case $INPUT in
 	1)
-		Install_vanilla; Main; return;;
+		Install_vanilla; main; return;;
 	2)
 		if [[ $INSTALLED_VANILLA -eq 1 ]]; then
-			Uninstall_vanilla; Main; return;
+			Uninstall_vanilla; main; return;
 		else
-			Main
+			main
 		fi;;
 	3)
 		if [[ $INSTALLED_VANILLA -eq 1 ]]; then
 			minecraft
 		else
-			Main	
+			main	
 		fi;;
 
 	9)
 		if [[ $INSTALLED_VANILLA -eq 1 ]]; then
 			Troubleshoot_vanilla
 		else
-			Main
+			main
 		fi;;
 	a)
-		select_server; Main; return;;
+		select_server; main; return;;
 	b)
 		if [[ $INSTALLED_SERVER -eq 1 ]]; then
 			Uninstall_server
 		else
-			Main
+			main
 		fi;;
 	c)
 		if [[ $INSTALLED_SERVER -eq 1 ]]; then
 			sudo minecraft-server start
 		else
-			Main
+			main
 		fi;;
 	q|Q|quit|Quit|QUIT|cancel|Cancel|CANCEL) clear; exit 0;;
-	*) Main;;
+	*) main;;
 esac
 }
 
-Main
+main
