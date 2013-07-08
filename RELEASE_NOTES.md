@@ -114,7 +114,7 @@ Release notes
 -
 - Revert "Use /usr/sbin instead of /usr/local/bin"
 
-2.2 - July 3rd, 2013
+2.2 - July 8th, 2013
 -
 - Update the launcher to the new version
 - All functions should be lowercase

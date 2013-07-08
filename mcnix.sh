@@ -123,9 +123,9 @@ EOF
 read -p "   Press enter to continue."
 
 ###
-# Begin function Install_vanilla
+# Begin function install_vanilla
 ###
-Install_vanilla () {
+install_vanilla () {
 clear
 cat <<EOF
 ####################################
@@ -140,7 +140,7 @@ if [[ -e $FILE ]]; then
 	sudo rm -rf $FILE
 fi
 sudo mkdir -p "/usr/share/minecraft"
-fetch_sudo "https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft.jar" "$FILE"
+fetch_sudo "https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar" "$FILE"
 # Icon
 FILE="/usr/share/icons/minecraft.svg"
 OLDFILE="/usr/share/pixmaps/minecraft.svg"
@@ -237,9 +237,9 @@ main
 }
 
 ###
-# Begin function Uninstall_vanilla
+# Begin function uninstall_vanilla
 ###
-Uninstall_vanilla () {
+uninstall_vanilla () {
 clear
 cat <<EOF
 ####################################
@@ -313,7 +313,7 @@ read -p "Press enter to continue."
 main
 }
 ###
-# Begin function Install_server
+# Begin function install_server
 ###
 select_server () {
 clear
@@ -340,14 +340,14 @@ printf "> "
 read INPUT
 case $INPUT in
 	1|"Vanilla"|"vanilla"|"VANILLA")
-		Install_server vanilla; return;;
+		install_server vanilla; return;;
 	2|"Bukkit"|"bukkit"|"BUKKIT")
-		Install_server bukkit; return;;
+		install_server bukkit; return;;
 	3|"Spigot"|"spigot"|"SPIGOT")
-		Install_server spigot; return;;
+		install_server spigot; return;;
 esac
 }
-Install_server () {
+install_server () {
 clear
 cat <<EOF
 ####################################
@@ -491,9 +491,9 @@ main
 }
 
 ###
-# Begin function Uninstall_server
+# Begin function uninstall_server
 ###
-Uninstall_server () {
+uninstall_server () {
 clear
 cat <<EOF
 ####################################
@@ -553,9 +553,9 @@ case $INPUT in
 esac
 }
 ###
-# Begin function Troubleshoot_vanilla
+# Begin function troubleshoot_vanilla
 ###
-Troubleshoot_vanilla () {
+troubleshoot_vanilla () {
 clear
 cat <<EOF
 ####################################
@@ -594,7 +594,7 @@ EOF
 	2)
 		echo "The Launcher will now be reinstalled."
 		read -p "Press enter to continue."
-		clear; Install_vanilla;;
+		clear; install_vanilla;;
 	3)
 		cat <<EOF
    Please open Minecraft and determine which error it is."
@@ -628,7 +628,7 @@ EOF
 				sleep 1
 				main;;
 			*)
-				Troubleshoot_vanilla;;
+				troubleshoot_vanilla;;
 		esac;;
 	4)
 		minecraft|tee ~/minecraft_debug_log.txt
@@ -655,11 +655,11 @@ EOF
 	5)
 		FILE=~/minecraft_debug_log.txt
 		reader $FILE
-		Troubleshoot_vanilla;;
+		troubleshoot_vanilla;;
 	0)
 		main;;
 	*)
-		Troubleshoot_vanilla;;
+		troubleshoot_vanilla;;
 esac
 echo ""
 printf "> "
@@ -673,7 +673,7 @@ clear
 if [[ $1 = error ]]; then
 cat <<EOF
 ####################################
-#  mc-*NIX v2.1.1 *PREVIEW* - 6/3/2013
+#  mc-*NIX v2.2 *PREVIEW* - 7/8/2013
 ####################################
       > Installation failed <
 
@@ -681,7 +681,7 @@ EOF
 else
 cat <<EOF
 ####################################
-#  mc-*NIX v2.1.1 *PREVIEW* - 6/11/2013
+#  mc-*NIX v2.2 *PREVIEW* - 7/8/2013
 ####################################
 
 EOF
@@ -719,10 +719,10 @@ printf "> "
 read INPUT
 case $INPUT in
 	1)
-		Install_vanilla; main; return;;
+		install_vanilla; main; return;;
 	2)
 		if [[ $INSTALLED_VANILLA -eq 1 ]]; then
-			Uninstall_vanilla; main; return;
+			uninstall_vanilla; main; return;
 		else
 			main
 		fi;;
@@ -735,7 +735,7 @@ case $INPUT in
 
 	9)
 		if [[ $INSTALLED_VANILLA -eq 1 ]]; then
-			Troubleshoot_vanilla
+			troubleshoot_vanilla
 		else
 			main
 		fi;;
@@ -743,7 +743,7 @@ case $INPUT in
 		select_server; main; return;;
 	b)
 		if [[ $INSTALLED_SERVER -eq 1 ]]; then
-			Uninstall_server
+			uninstall_server
 		else
 			main
 		fi;;
