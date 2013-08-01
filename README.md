@@ -3,6 +3,8 @@ mc*NIX - A Minecraft installer for UNIX/Linux
 
 A shell-based Minecraft installer for Ubuntu and other *NIX-based systems.
 
+Stable releases now available for download. See "Downloads" for available versions.
+
 Features:
 - Installer (obviously)
 - Launcher verifier
@@ -17,9 +19,10 @@ Features (technical stuff):
 
 How do I use this?
 ---
-- Step 1: Download the mcnix.sh file to your computer
-- Step 2: Mark the file as executable
-- Step 3: Open in a terminal
+- Step 1: Click Downloads up on the top of the page
+- Step 2: Download mcnix.sh
+- Step 3: Mark the file as executable
+- Step 4: Open in a terminal (gnome-terminal, xterm, Konsole, etc.)
 - The rest should be fairly easy to figure out :)
 
 What does it do?
