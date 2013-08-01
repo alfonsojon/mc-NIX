@@ -20,7 +20,7 @@ Features (technical stuff):
 How do I use this?
 ---
 - Step 1: Click Downloads up on the top of the page
-- Step 2: Download mcnix.sh
+- Step 2: Download the latest (stable) version of mcnix.sh
 - Step 3: Mark the file as executable
 - Step 4: Open in a terminal (gnome-terminal, xterm, Konsole, etc.)
 - The rest should be fairly easy to figure out :)
