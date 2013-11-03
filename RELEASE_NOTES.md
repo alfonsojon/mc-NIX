@@ -118,3 +118,13 @@ Release notes
 -
 - Update the launcher to the new version
 - All functions should be lowercase
+
+2.3 - November 3rd, 2013
+-
+- Automatically set window size
+- Improved server installation and uninstallation
+- Minor UI changes
+- Added more support for the new launcher
+- Added a new Unity Quicklist titled "Change your Skin"
+- Removed debug mode
+- Removed troubleshooting option
