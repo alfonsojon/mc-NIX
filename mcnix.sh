@@ -30,9 +30,6 @@ echo "If you cancelled mid-installation, you may have to reinstall Minecraft."
 exit 0
 }
 
-# Fix window size
-echo -ne "\e[8;${height};${width}t"
-
 ###
 # Fetch functions
 ###
@@ -48,7 +45,7 @@ else
 	exit 1
 fi
 if [[ "$?" -ne "0" ]]; then
-	echo "Download of ${FILE} failed. Exiting."
+	echo "Download of ${FILE} failed. Returning to the main menu."
 	sleep 3
 	main error
 else
@@ -67,7 +64,7 @@ else
 	exit 1
 fi
 if [[ "$?" -ne "0" ]]; then
-	echo "Download of ${FILE} failed. Exiting."
+	echo "Download of ${FILE} failed. Returning to the main menu."
 	sleep 3
 	main error
 else
@@ -131,9 +128,9 @@ read -p "   Press enter to continue."
 install_vanilla () {
 clear
 cat <<EOF
-################################################################################
+####################################
 #  Installing Minecraft...
-################################################################################
+####################################
 
 EOF
 javacheck
@@ -169,6 +166,19 @@ if [[ "\$?" -ne "0" ]]; then
 fi
 exit 0
 EOF'
+sudo chmod +x /usr/local/bin/minecraft
+# /usr/local/bin/minecraft-debug
+FILE="/usr/local/bin/minecraft-debug"
+if [[ -e $FILE ]]; then
+	sudo rm -rf /usr/local/bin/minecraft-debug
+fi
+sudo touch /usr/local/bin/minecraft-debug
+sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft-debug
+#!/bin/bash
+minecraft | tee $HOME/minecraft_debug_log.txt && echo "Minecraft logfile stored in \"$HOME\"" &&  zenity --info --text="Minecraft logfile stored in \"$HOME\""
+exit 0
+EOF'
+sudo chmod +x /usr/local/bin/minecraft-debug
 # Application launcher (/usr/share/applications/mojang-Minecraft.desktop)
 FILE=/usr/share/applications/mojang-Minecraft.desktop
 if [[ -e $FILE ]]; then
@@ -201,9 +211,9 @@ sudo xdg-desktop-menu forceupdate
 # Finished!
 clear
 cat <<EOF
-################################################################################
+####################################
 #  Installation Complete
-################################################################################
+####################################
 
    Minecraft has been successfully installed.
 
@@ -232,9 +242,9 @@ main
 uninstall_vanilla () {
 clear
 cat <<EOF
-################################################################################
+####################################
 #  Uninstall Minecraft
-################################################################################
+####################################
 
    You are about to uninstall Minecraft.
 
@@ -290,13 +300,13 @@ case $INPUT in
 esac
 clear
 cat <<EOF
-################################################################################
+####################################
 #  Uninstall Complete
-################################################################################
+####################################
 
-   Minecraft has been uninstalled from your computer.
+Minecraft has been uninstalled from your computer.
 
-   All user preferences and save files have not been damaged.
+All user preferences and save files have not been damaged.
 								~alfonsojon
 EOF
 read -p "Press enter to continue."
@@ -308,29 +318,28 @@ main
 select_server () {
 clear
 cat <<EOF
-################################################################################
+####################################
 #  Please select which type of server you would like.
-################################################################################
+####################################
 
-1. [ Standard ] : Standard is the "Default" Minecraft server. It provides no
-   extra commands. It is limited in what it can do, but it is fast.
-   * Recommended for low-traffic servers
-
-2. [  Bukkit  ] : Bukkit is a modification of Vanilla, but with support for
-   plugins which allow you to add functionality to the server. When used by
-   itself, it is nearly identical to Standard.
-   * Recommended for medium-traffic servers
-
-3. [  Spigot  ] : Spigot is based upon Bukkit, but adds  performance increases
-   and many other features. It may not be as stable as Bukkit or Standard.
-   Most Bukkit plugins work with Spigot.
-   * Recommended for high-traffic servers
+1. Vanilla
+   Vanilla is the "Default" Minecraft server. It provides no extra commands and
+   is very limited. 
+   ** If you don't know what you're doing, install Vanilla!
+2. Bukkit
+   Bukkit is a modification of Vanilla, but with support for plugins which allow
+   you to add functionality to the server. When used by itself, it is nearly
+   identical to Vanilla.
+3. Spigot
+   Spigot is based upon Bukkit, but adds many performance increases and a few
+   other features. This is faster than Bukkit, but it may not be as stable as
+   Bukkit. Most Bukkit plugins work with Spigot.
 
 EOF
 printf "> "
 read INPUT
 case $INPUT in
-	1|"Vanilla"|"vanilla"|"VANILLA"|"Standard"|"standard"|"STANDARD")
+	1|"Vanilla"|"vanilla"|"VANILLA")
 		install_server vanilla; return;;
 	2|"Bukkit"|"bukkit"|"BUKKIT")
 		install_server bukkit; return;;
@@ -341,9 +350,9 @@ esac
 install_server () {
 clear
 cat <<EOF
-################################################################################
+####################################
 #  Installing Minecraft Server...
-################################################################################
+####################################
 
 EOF
 if [[ $1 == vanilla ]]; then
@@ -457,9 +466,9 @@ sudo chmod +x /usr/local/bin/minecraft-server
 # Finished!
 clear
 cat <<EOF
-################################################################################
+####################################
 #  Installation Complete
-################################################################################
+####################################
 
    Minecraft Server has been successfully installed.
 
@@ -487,9 +496,9 @@ main
 uninstall_server () {
 clear
 cat <<EOF
-################################################################################
+####################################
 #  Uninstall Minecraft Server
-################################################################################
+####################################
 
    You are about to uninstall your Minecraft server.
 
@@ -506,10 +515,9 @@ read INPUT
 case $INPUT in
 	y|Y|yes|Yes|YES)
 		echo "Moving data to '$HOME'. This may take a few moments."
-		sudo mkdir $HOME/minecraft_server/backup/
-		sudo cp -r /opt/minecraft_server/* $HOME/minecraft_server_backup/
-		sudo chown -hR `echo "$(id -u -n)"`:`echo "$(id -u -n)"` $HOME/minecraft_server_backup
-		echo "Data copied to '$HOME'."
+		sudo cp -r /opt/minecraft_server/* $HOME
+		sudo chown -hR `echo "$(id -u -n)"`:`echo "$(id -u -n)"`
+		echo "Data moved to '$HOME'."
 		sudo rm -rf /opt/minecraft_server
 		sudo rm -rf /usr/local/bin/minecraft-server
 		echo "Server files removed."
@@ -517,9 +525,9 @@ case $INPUT in
 		main;;
 	n|N|no|No|NO)
 		clear
-		echo "################################################################################"
+		echo "####################################"
 		echo "# CAUTION - THIS IS NOT REVERSABLE"
-		echo "################################################################################"
+		echo "####################################"
 		echo ""
 		echo "   Are you sure you would like to delete ALL server files?"
 		echo "   [ Yes | No ]"
@@ -534,35 +542,151 @@ case $INPUT in
 				read -p "Press enter to continue."
 				main;;
 			n|N|no|No|NO|q|Q|quit|Quit|QUIT|cancel|Cancel|CANCEL)
-				echo "Exiting."
+				echo "Returning to the main menu."
 				sleep 1
 				main;;
 		esac;;
 	q|Q|quit|Quit|QUIT|cancel|Cancel|CANCEL)
-		echo "Exiting."
+		echo "Returning to the main menu."
 		sleep 1
 		main;;
 esac
+}
+###
+# Begin function troubleshoot_vanilla
+###
+troubleshoot_vanilla () {
+clear
+cat <<EOF
+####################################
+#  Minecraft Troubleshooter
+####################################
+
+   Select the option that applies to your problem.
+
+   1. Black screen
+   2. Invalid jarfile
+   3. Minecraft has Crashed! error screen
+   4. Debug Session (dumps errors to ~/minecraft_debug_log.txt)
+EOF
+if [[ -e ~/minecraft_debug_log.txt ]]; then
+cat <<EOF
+   5. View Debug Log
+EOF
+fi
+cat <<EOF
+
+   0. Cancel
+
+EOF
+printf "> "
+read INPUT
+case $INPUT in
+	1)
+		cat <<EOF
+
+   When the Minecraft launcher opens, click "Options", then "Force Update".
+   After the Options dialogue closes, click "Login"
+
+EOF
+		read -p "Press enter to continue."
+		minecraft;;
+	2)
+		echo "The Launcher will now be reinstalled."
+		read -p "Press enter to continue."
+		clear; install_vanilla;;
+	3)
+		cat <<EOF
+   Please open Minecraft and determine which error it is."
+   1. Bad Video Card Drivers!"
+   2. Other error"
+
+   0. Cancel
+EOF
+		read INPUT
+		case $INPUT in
+			1)
+				echo "Opening webpage..."
+				xdg-open https://help.ubuntu.com/community/BinaryDriverHowto;;
+			2)
+				cat <<EOF
+####################################
+# Minecraft Troubleshooter
+####################################
+
+   When the Minecraft launcher opens, click "Options", then "Force Update".
+   After the Options dialogue closes, click "Login"
+   If this works, you can close Minecraft. If not, open a debug session (from the built-in troubleshooting menu).
+
+EOF
+				read -p "Press enter to continue."
+				minecraft;;
+			0)
+				main;;
+			q|Q|quit|Quit|QUIT|cancel|Cancel|CANCEL)
+				echo "Returning to the main menu."
+				sleep 1
+				main;;
+			*)
+				troubleshoot_vanilla;;
+		esac;;
+	4)
+		minecraft|tee ~/minecraft_debug_log.txt
+		cat <<EOF
+####################################
+# Minecraft Troubleshooter
+####################################
+
+   Would you like to view the debug log?
+   [ Yes | No ]
+
+EOF
+		printf "> "
+		read INPUT
+		case $INPUT in
+		1|yes|y)
+			READFILE=~/minecraft_debug_log.txt
+			reader
+			less ~/minecraft_debug_log.txt
+			main;;
+		2|no|n)
+			main;;
+		esac;;
+	5)
+		FILE=~/minecraft_debug_log.txt
+		reader $FILE
+		troubleshoot_vanilla;;
+	0)
+		main;;
+	*)
+		troubleshoot_vanilla;;
+esac
+echo ""
+printf "> "
 }
 
 ###
 # Begin function main
 ###
 main () {
-echo -ne "\e[8;${24};${80}t"
 clear
-cat <<EOF
-################################################################################
-#  mc-*NIX v2.3 *PREVIEW* - 11/02/2013
-################################################################################
-EOF
 if [[ $1 = error ]]; then
 cat <<EOF
-   >> Error Installing
+####################################
+#  mc-*NIX v2.2 *PREVIEW* - 7/8/2013
+####################################
+      > Installation failed <
+
+EOF
+else
+cat <<EOF
+####################################
+#  mc-*NIX v2.2 *PREVIEW* - 7/8/2013
+####################################
+
 EOF
 fi
 cat <<EOF
-
    Made by alfonsojon
    E-Mail: alfonsojon1997@gmail.com
    Website: http://www.live-craft.com/
@@ -570,23 +694,24 @@ cat <<EOF
    Select an option (type the number and hit enter)
    You can also type the name of the entry. To exit, type "exit" or "quit".
 
-   [ 1 ] Install Minecraft
+   1. Install Minecraft
 EOF
 if [[ -e /usr/local/bin/minecraft ]] && [[ -e /usr/share/minecraft/minecraft.jar ]]
 then
 INSTALLED_VANILLA=1
 cat <<EOF
-   [ 2 ] Uninstall Minecraft
-   [ 3 ] Launch Minecraft
+   2. Uninstall Minecraft
+   3. Launch Minecraft
+   9. Troubleshoot Minecraft
 
 EOF
 fi
-echo "   [ a ] Install Minecraft Server"
+echo "   a. Install Minecraft Server"
 if [[ -e /opt/minecraft_server ]]; then
 	INSTALLED_SERVER=1
 cat <<EOF
-   [ b ] Uninstall Minecraft Server
-   [ c ] Launch Minecraft Server
+   b. Uninstall Minecraft Server
+   c. Launch Minecraft Server
 EOF
 fi
 echo ""
@@ -606,6 +731,13 @@ case $INPUT in
 			minecraft
 		else
 			main	
+		fi;;
+
+	9)
+		if [[ $INSTALLED_VANILLA -eq 1 ]]; then
+			troubleshoot_vanilla
+		else
+			main
 		fi;;
 	a)
 		select_server; main; return;;

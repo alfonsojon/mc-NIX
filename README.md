@@ -5,20 +5,22 @@ A shell-based Minecraft installer for Ubuntu and other *NIX-based systems.
 
 Stable releases now available for download. See "Downloads" for available versions.
 
-Features (Standard):
+Features:
 - Installer (obviously)
 - Launcher verifier
-- Unity Quicklists integration
+- Unity integration
 
 Features (technical stuff):
+- MD5 verification of downloads
 - Launcher verification on launch (silent)
+- Error log dumper
 - Command line integration
 - Debug mode
 
 How do I use this?
 ---
 - Step 1: Click Downloads up on the top of the page
-- Step 2: Download the latest (stable) version of mc*NIX. It will be titled "install_client_(version).sh"
+- Step 2: Download the latest (stable) version of mcnix.sh
 - Step 3: Mark the file as executable
 - Step 4: Open in a terminal (gnome-terminal, xterm, Konsole, etc.)
 - The rest should be fairly easy to figure out :)
