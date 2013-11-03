@@ -128,3 +128,4 @@ Release notes
 - Removed redundant debug log generator as the new launcher takes care of that
 - Removed troubleshooting section as the new launcher is rather smart.
 - Vastly improved server configuration and uninstallation
+- Added Unity Quicklist for quick skin changing

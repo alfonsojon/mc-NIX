@@ -181,15 +181,15 @@ Comment=Play Minecraft
 Name=Minecraft
 TryExec=minecraft
 Exec=minecraft
-Actions=Debug;MinecraftWiki;
+Actions=SkinChange;MinecraftWiki;
 GenericName=Building Game
 Icon=minecraft
 Categories=Game;
 Type=Application
 
-[Desktop Action Debug]
-Name=Debug Mode
-Exec=minecraft-debug
+[Desktop Action SkinChange]
+Name=Change your Skin
+Exec=xdg-open https://minecraft.net/profile/
 
 [Desktop Action MinecraftWiki]
 Name=Minecraft Wiki
@@ -553,7 +553,7 @@ echo -ne "\e[8;${24};${80}t"
 clear
 cat <<EOF
 ################################################################################
-#  mc-*NIX v2.3 *PREVIEW* - 11/02/2013
+#  11/02/2013                        mc*NIX                       Version 2.3  #
 ################################################################################
 EOF
 if [[ $1 = error ]]; then
