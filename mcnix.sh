@@ -213,7 +213,7 @@ Type=Application
 
 [Desktop Action Skin]
 Name=Change your Skin
-Exec=xdg-open https://www.minecraft.net/profile/
+Exec=xdg-open https://www.minecraft.net/profile
 
 [Desktop Action MinecraftWiki]
 Name=Minecraft Wiki
@@ -244,7 +244,7 @@ cat <<EOF
    Command Line:
 	- Run "minecraft" from the command line.
 
-								   ~alfonsojon
+								  ~alfonsojon
 EOF
 read -p "Press enter to continue."
 main
@@ -326,10 +326,10 @@ cat <<EOF
 #  Uninstall Complete.                                                         #
 ################################################################################
 
-Minecraft has been uninstalled from your computer.
+   Minecraft has been uninstalled from your computer.
+   All user preferences and save files have not been damaged.
 
-All user preferences and save files have not been damaged.
-								~alfonsojon
+								  ~alfonsojon
 EOF
 read -p "Press enter to continue."
 main
@@ -507,7 +507,7 @@ cat <<EOF
    - To remove an invalid lock file, enter the following command:
 	"minecraft-server fixlock"
 	
-								~alfonsojon
+								  ~alfonsojon
 EOF
 read -p "Press enter to continue."
 main
