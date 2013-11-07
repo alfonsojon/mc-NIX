@@ -128,3 +128,8 @@ Release notes
 - Added a new Unity Quicklist titled "Change your Skin"
 - Removed debug mode
 - Removed troubleshooting option
+
+2.3.1 - November 7th, 2013
+-
+- Updated icon, now hosted on Dropbox.
+- Added proper credits for the icon

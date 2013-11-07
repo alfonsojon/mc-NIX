@@ -27,3 +27,10 @@ What does it do?
 ---
 - It installs and provides utilities for Minecraft on Unix/Linux
 - It enables a very easy way to get a Minecraft server set up.
+
+Credits
+---
+I would like to thank "batil" of Deviantart for allowing me to use his icon for the launcher. To see more of his work, head to http://batil.deviantart.com/ .
+
+Source:
+http://batil.deviantart.com/art/Minecraft-Faenza-Icon-317669519
