@@ -12,6 +12,7 @@ Features:
 - Unity integration
 
 Features (technical stuff):
+---
 - Sanity checks
 - Launcher verification on launch (silent)
 - Command line integration
