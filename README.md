@@ -6,6 +6,7 @@ A shell-based Minecraft installer for Ubuntu and other *NIX-based systems.
 Stable releases now available for download. See "Downloads" for available versions.
 
 Features:
+---
 - Installer (obviously)
 - Launcher verifier
 - Unity integration
