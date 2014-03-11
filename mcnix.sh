@@ -92,7 +92,12 @@ elif command -v pacman >/dev/null 2>&2; then
 else
 	echo "You are running an unsupported system."
 	echo "Please install Java manually, then re-run the installer."
-	exit
+	exit 1
+fi
+if [[ "$?" -ne "0" ]]; then
+	echo "Java installation failed. Returning to the main menu."
+	sleep 3
+	main error
 fi
 }
 
@@ -112,6 +117,7 @@ elif command -v pacman >/dev/null 2>&2; then
 	pacman -Sg zenity
 else
 	echo "Zenity is not installed. Certain features may not work properly."
+	echo "You should install Zenity manually."
 	sleep 2
 	echo "Now resuming installation."
 	sleep 0.5
@@ -159,6 +165,9 @@ cat <<EOF
 
 EOF
 javacheck
+if [[ $? -ne 0 ]]; then
+	exit 1
+fi
 zenitycheck
 # Launcher
 FILE="/usr/share/minecraft/minecraft.jar"
@@ -587,12 +596,12 @@ echo -ne "\e[8;${24};${80}t"
 clear
 cat <<EOF
 ################################################################################
-# November 7th, 2013                 mc*NIX                      Version 2.3.1 #
+# December 28th, 2013                mc*NIX                     Version 2.3.2a #
 ################################################################################
 EOF
 if [[ $1 = error ]]; then
 cat <<EOF
-   > Installation failed! <
+   [ * Installation failed  * ]
 EOF
 fi
 cat <<EOF
