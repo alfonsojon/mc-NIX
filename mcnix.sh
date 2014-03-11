@@ -196,7 +196,7 @@ cd /usr/share/minecraft
 java -jar /usr/share/minecraft/minecraft.jar
 if [[ "\$?" -ne "0" ]]; then
 	echo "Launcher closed unsuccessfully."
-	zenity --title \"Error\" --error --text="Launcher closed unsuccessfully."
+	zenity --title Error --error --text="Launcher closed unsuccessfully."
 	exit 1
 fi
 exit 0
