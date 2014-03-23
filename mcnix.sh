@@ -195,8 +195,8 @@ sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft
 cd /usr/share/minecraft
 java -jar /usr/share/minecraft/minecraft.jar
 if [[ "\$?" -ne "0" ]]; then
-	echo "Launcher closed unsuccessfully."
-	zenity --title Error --error --text="Launcher closed unsuccessfully."
+	echo "Minecraft has closed unexpectedly."
+	zenity --title Error --error --text="Minecraft has closed unexpectedly."
 	exit 1
 fi
 exit 0
