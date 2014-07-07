@@ -1,23 +1,23 @@
 #!/bin/bash
 #
-#  Copyright 2013 Jonathan Alfonso <alfonsojon1997@gmail.com>
-#  
+#  Copyright 2014 Jonathan Alfonso <alfonsojon1997@gmail.com>
+#
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation; either version 2 of the License, or
 #  (at your option) any later version.
-#  
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-#  
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
-#  
-#  
+#
+#
 #  This script does not distribute any protected Minecraft files. You can't use this to play Minecraft without buying it.
 #  All of the files downloaded by this script are provided by www.minecraft.net, so this does not break Minecraft's license.
 #  Enjoy, alfonsojon (Problems? E-Mail me at alfonsojon1997@gmail.com)
@@ -130,18 +130,18 @@ fi
 clear
 cat <<EOF
 
-   Copyright 2013 Jonathan Alfonso <alfonsojon1997@gmail.com>
-   
+   Copyright 2014 Jonathan Alfonso <alfonsojon1997@gmail.com>
+
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU General Public License as published by the Free
    Software Foundation; either version 2 of the License, or (at your option)
    any later version.
-   
+
    This program is distributed in the hope that it will be useful, but WITHOUT
    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
    more details.
- 
+
    You should have received a copy of the GNU General Public License along
    with this program; if not, write to the Free Software Foundation, Inc., 51
    Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -189,18 +189,19 @@ FILE="/usr/local/bin/minecraft"
 if [[ -e $FILE ]]; then
 	sudo rm -rf $FILE
 fi
-sudo touch /usr/local/bin/minecraft
-sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft
-#!/bin/bash
-cd /usr/share/minecraft
-java -jar /usr/share/minecraft/minecraft.jar
-if [[ "\$?" -ne "0" ]]; then
-	echo "Minecraft has closed unexpectedly."
-	zenity --title Error --error --text="Minecraft has closed unexpectedly."
-	exit 1
-fi
-exit 0
-EOF'
+sudo rm -rf /usr/local/bin/minecraft
+#sudo touch /usr/local/bin/minecraft
+#sudo $SHELL -c 'cat <<EOF > /usr/local/bin/minecraft
+##!/bin/bash
+#cd /usr/share/minecraft
+#java -jar /usr/share/minecraft/minecraft.jar
+#if [[ "\$?" -ne "0" ]]; then
+#	echo "Minecraft has closed unexpectedly."
+#	zenity --title Error --error --text="Minecraft has closed unexpectedly."
+#	exit 1
+#fi
+#exit 0
+EOF
 sudo chmod +x /usr/local/bin/minecraft
 # Application launcher (/usr/share/applications/mojang-Minecraft.desktop)
 FILE=/usr/share/applications/mojang-Minecraft.desktop
@@ -212,9 +213,8 @@ sudo $SHELL -c 'cat <<EOF > /usr/share/applications/mojang-Minecraft.desktop
 [Desktop Entry]
 Comment=Play Minecraft
 Name=Minecraft
-TryExec=minecraft
-Exec=minecraft
-Actions=Skin;MinecraftWiki;
+Exec=sh -c "java -jar /usr/share/minecraft/minecraft.jar"
+Actions=Skin;MinecraftWiki;Screenshots;ResourcePacks
 GenericName=Building Game
 Icon=minecraft
 Categories=Game;
@@ -226,7 +226,15 @@ Exec=xdg-open https://www.minecraft.net/profile
 
 [Desktop Action MinecraftWiki]
 Name=Minecraft Wiki
-Exec=xdg-open http://www.minecraftwiki.net/
+Exec=xdg-open http://minecraft.gamepedia.com/Minecraft_Wiki
+
+[Desktop Action Screenshots]
+Name=Screenshots
+Exec=xdg-open .minecraft/screenshots/
+
+[Desktop Action ResourcePacks]
+Name=Resource Packs
+Exec=xdg-open .minecraft/resourcepacks/
 EOF'
 sudo chmod +x /usr/share/applications/mojang-Minecraft.desktop
 sudo xdg-desktop-menu install /usr/share/applications/mojang-Minecraft.desktop
@@ -240,18 +248,7 @@ cat <<EOF
 
    Minecraft has been successfully installed.
 
-   To launch Minecraft, go to your applications launcher and find Minecraft.
-   
-   Unity:
-	- Open the Unity Dash and search for Minecraft. Alternatively, it is
-	  listed under the Applications lens.
-   GNOME Shell:
-	- Open the Activities menu and search for Minecraft. Alternatively, it
-	  is available under the Applications list.
-   GNOME 2.x/XFCE/LXDE/Cinnamon:
-	- Listed under Applications\Games
-   Command Line:
-	- Run "minecraft" from the command line.
+   To launch Minecraft, open your applications launcher and select Minecraft.
 
 								  ~alfonsojon
 EOF
@@ -492,7 +489,7 @@ case "\$1" in
 		echo "  update: This will update the server to the latest stable build available."
 		echo ""
 		echo "  help:   Shows this message";;
-esac		
+esac
 EOF'
 sudo chmod +x /usr/local/bin/minecraft-server
 # Finished!
@@ -515,7 +512,7 @@ cat <<EOF
 	"minecraft-server update"
    - To remove an invalid lock file, enter the following command:
 	"minecraft-server fixlock"
-	
+
 								  ~alfonsojon
 EOF
 read -p "Press enter to continue."
@@ -596,7 +593,7 @@ echo -ne "\e[8;${24};${80}t"
 clear
 cat <<EOF
 ################################################################################
-# March 23rd, 2014                   mc*NIX                      Version 2.3.3 #
+# July 7th, 2014                     mc*NIX                        Version 2.4 #
 ################################################################################
 EOF
 if [[ $1 = error ]]; then
@@ -608,7 +605,7 @@ cat <<EOF
 
    Made by alfonsojon
    E-Mail: alfonsojon1997@gmail.com
-   Website: http://www.live-craft.com/
+   Website: http://www.livecraft.us/
 
    Icon by "batil" on http://batil.deviantart.com/
 
@@ -617,7 +614,7 @@ cat <<EOF
 
    1. Install Minecraft
 EOF
-if [[ -e /usr/local/bin/minecraft ]] && [[ -e /usr/share/minecraft/minecraft.jar ]]
+if [[ -e /usr/share/applications/mojang-Minecraft.desktop ]] && [[ -e /usr/share/minecraft/minecraft.jar ]]
 then
 INSTALLED_VANILLA=1
 cat <<EOF
@@ -650,7 +647,7 @@ case $INPUT in
 		if [[ $INSTALLED_VANILLA -eq 1 ]]; then
 			minecraft
 		else
-			main	
+			main
 		fi;;
 
 	9)
