@@ -22,9 +22,9 @@
 
 ; Definitions
 !define PRODUCT_NAME "mc-*NIX"
-!define PRODUCT_VERSION "2.3.1"
+!define PRODUCT_VERSION "2.4"
 !define PRODUCT_PUBLISHER "Jonathan Alfonso"
-!define PRODUCT_WEB_SITE "http://www.live-craft.com/forum/mcnix/"
+!define PRODUCT_WEB_SITE "http://www.livecraft.us/forum/mcnix/"
 
 ; MUI 1.67 compatible ------
 !include "MUI.nsh"

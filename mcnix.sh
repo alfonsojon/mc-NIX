@@ -82,11 +82,11 @@ javacheck () {
 if command -v java >/dev/null 2>&1; then
 	echo "Java installed, continuing"
 elif command -v apt-get >/dev/null 2>&1; then
-	sudo apt-get install openjdk-7-jre
+	sudo apt-get install default-jre
 elif command -v aptitude >/dev/null 2>&1; then
-	sudo aptitude install openjdk-7-jre
+	sudo aptitude install default-jre
 elif command -v yum >/dev/null 2>&1; then
-	su -c "yum install java-1.7.0-openjdk"
+	su -c "yum install java-1.?.0-openjdk"
 elif command -v pacman >/dev/null 2>&2; then
 	pacman -Sg jre7-openjdk
 else
@@ -593,7 +593,7 @@ echo -ne "\e[8;${24};${80}t"
 clear
 cat <<EOF
 ################################################################################
-# July 7th, 2014                     mc*NIX                        Version 2.4 #
+# August 11th, 2014                  mc*NIX                      Version 2.4.1 #
 ################################################################################
 EOF
 if [[ $1 = error ]]; then
