@@ -354,15 +354,13 @@ cat <<EOF
    extra commands and is very simple in usage and configuration.
    * Recommended for simple servers
 
-2. [  Bukkit  ] : Bukkit is a modification of Vanilla, but with support for
-   server-side modifications called plugins. Without plugins, it is nearly
-   identical to Standard.
-   * Recommended for medium-sized servers
-
-3. [  Spigot  ] : Spigot is based upon Bukkit, but it has tweaks for achieving
+2. [  Spigot  ] : Spigot is based upon Bukkit, but it has tweaks for achieving
    maximum performance. Most Bukkit plugins work with Spigot, but a plugin made
    for Spigot may not work with Bukkit.
    * Recommended for high traffic servers
+
+?. [  Bukkit  ] : Bukkit is no longer available for installation. The Bukkit
+   project has discontinued Bukkit, and it will not be updated again.
 
 EOF
 printf "> "
@@ -370,9 +368,7 @@ read INPUT
 case $INPUT in
 	1|"Vanilla"|"vanilla"|"VANILLA"|"Standard"|"standard"|"STANDARD")
 		install_server standard; return;;
-	2|"Bukkit"|"bukkit"|"BUKKIT")
-		install_server bukkit; return;;
-	3|"Spigot"|"spigot"|"SPIGOT")
+	2|"Spigot"|"spigot"|"SPIGOT")
 		install_server spigot; return;;
 esac
 }
@@ -396,30 +392,17 @@ if [[ $1 == standard ]]; then
 	sudo mkdir -p $DIRECTORY
 	fetch_sudo $URL $FILE
 	sudo chmod +x $FILE
-elif [[ $1 == bukkit ]]; then
-	NAME=craftbukkit.jar
-	DIRECTORY=/opt/minecraft_server/craftbukkit/
-	FILE=/opt/minecraft_server/craftbukkit/craftbukkit.jar
-	URL=http://dl.bukkit.org/downloads/craftbukkit/get/latest-beta/craftbukkit.jar
-	if [[ -e $FILE ]]; then
-		echo "Upgrading $NAME."
-		sudo rm -rf $FILE
-	fi
-	sudo mkdir -p $DIRECTORY
-	fetch_sudo $URL $FILE
-	sudo chmod +x $FILE
 elif [[ $1 == spigot ]]; then
 	NAME=spigot.jar
 	DIRECTORY=/opt/minecraft_server/spigot/
 	FILE=/opt/minecraft_server/spigot/spigot.jar
-	URL=http://ci.md-5.net/job/Spigot/lastStableBuild/artifact/Spigot-Server/target/spigot.jar
+	#URL=http://ci.md-5.net/job/Spigot/lastStableBuild/artifact/Spigot-Server/target/spigot.jar
 	if [[ -e $FILE ]]; then
 		echo "Upgrading $NAME."
 		sudo rm -rf $FILE
 	fi
 	sudo mkdir -p $DIRECTORY
-	fetch_sudo $URL $FILE
-	sudo chmod +x $FILE
+	echo "You need a copy of spigot.jar build #1629 and place it in /opt/minecraft_server/spigot."
 else
 	main
 fi
@@ -593,7 +576,7 @@ echo -ne "\e[8;${24};${80}t"
 clear
 cat <<EOF
 ################################################################################
-# August 11th, 2014                  mc*NIX                      Version 2.4.1 #
+# September 10th, 2014               mc*NIX                      Version 2.4.2 #
 ################################################################################
 EOF
 if [[ $1 = error ]]; then
