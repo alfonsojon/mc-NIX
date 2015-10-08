@@ -1,7 +1,7 @@
-mc*NIX - A Minecraft installer for UNIX/Linux
+mc-nix - A Minecraft installer for GNU/Linux
 =============================================
 
-A shell-based Minecraft installer for Ubuntu and other *NIX-based systems.
+A shell-based Minecraft installer for various GNU/Linux-based systems
 
 Stable releases now available for download. See "Downloads" for available versions.
 
