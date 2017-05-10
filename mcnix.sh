@@ -590,7 +590,8 @@ cat <<EOF
    E-Mail: alfonsojon1997@gmail.com
    Website: http://www.livecraft.us/
 
-   Icon by "batil" on Deviantart http://batil.deviantart.com/art/Minecraft-Faenza-Icon-317669519
+   Icon by "batil" on Deviantart
+     http://batil.deviantart.com/art/Minecraft-Faenza-Icon-317669519
 
    Select an option (type the number and hit enter)
    You can also type the name of the entry. To exit, type "exit" or "quit".
