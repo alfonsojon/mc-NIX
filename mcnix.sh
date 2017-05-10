@@ -183,7 +183,7 @@ if [[ -e $FILE ]]; then
 	sudo rm -rf $FILE
 fi
 sudo rm -rf $OLDFILE
-fetch_sudo "https://dl.dropboxusercontent.com/u/54213557/minecraft.svg" "$FILE"
+fetch_sudo "https://raw.githubusercontent.com/alfonsojon/mc-nix/master/thirdparty/minecraft.svg" "$FILE"
 # /usr/local/bin/minecraft
 FILE="/usr/local/bin/minecraft"
 if [[ -e $FILE ]]; then
@@ -576,7 +576,7 @@ echo -ne "\e[8;${24};${80}t"
 clear
 cat <<EOF
 ################################################################################
-# September 10th, 2014               mc*NIX                      Version 2.4.2 #
+# May 9th, 2017                      mc*NIX                      Version 2.4.3 #
 ################################################################################
 EOF
 if [[ $1 = error ]]; then
@@ -590,7 +590,7 @@ cat <<EOF
    E-Mail: alfonsojon1997@gmail.com
    Website: http://www.livecraft.us/
 
-   Icon by "batil" on http://batil.deviantart.com/
+   Icon by "batil" on Deviantart http://batil.deviantart.com/art/Minecraft-Faenza-Icon-317669519
 
    Select an option (type the number and hit enter)
    You can also type the name of the entry. To exit, type "exit" or "quit".
